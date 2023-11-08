@@ -5,6 +5,7 @@ import appV1Router from "./v1/routes/index.js";
 const app = express();
 const PORT = config.EXPRESS_PORT;
 
+app.use(express.json())
 app.use("/api/v1", appV1Router);
 
 app.listen(PORT, () => {
