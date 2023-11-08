@@ -8,9 +8,17 @@ const getAllCustomers = async (req, res) => {
       data: allCustomers,
     });
   } catch (error) {
-    res
-      .status(error?.status || 500)
-      .json({ result: "Failed", data: { error: error?.message || error } });
+    res.status(error?.status || 500).json({
+      result: "Failed",
+      data: {
+        error: {
+          code: error.code || error,
+          meta: error.meta || error,
+          message: error.message || error,
+          clientVersion: error.clientVersion || error,
+        },
+      },
+    });
   }
 };
 
@@ -23,9 +31,17 @@ const getSingleCustomer = async (req, res) => {
       data: customer,
     });
   } catch (error) {
-    res
-      .status(error?.status || 500)
-      .json({ result: "Failed", data: { error: error?.message || error } });
+    res.status(error?.status || 500).json({
+      result: "Failed",
+      data: {
+        error: {
+          code: error.code || error,
+          meta: error.meta || error,
+          message: error.message || error,
+          clientVersion: error.clientVersion || error,
+        },
+      },
+    });
   }
 };
 
@@ -38,9 +54,17 @@ const createCustomer = async (req, res) => {
       data: createdCustomer,
     });
   } catch (error) {
-    res
-      .status(error?.status || 500)
-      .json({ result: "Failed", data: { error: error?.message || error } });
+    res.status(error?.status || 500).json({
+      result: "Failed",
+      data: {
+        error: {
+          code: error.code || error,
+          meta: error.meta || error,
+          message: error.message || error,
+          clientVersion: error.clientVersion || error,
+        },
+      },
+    });
   }
 };
 
@@ -57,9 +81,17 @@ const updateCustomer = async (req, res) => {
       data: updatedCustomer,
     });
   } catch (error) {
-    res
-      .status(error?.status || 500)
-      .json({ result: "Failed", data: { error: error?.message || error } });
+    res.status(error?.status || 500).json({
+      result: "Failed",
+      data: {
+        error: {
+          code: error.code || error,
+          meta: error.meta || error,
+          message: error.message || error,
+          clientVersion: error.clientVersion || error,
+        },
+      },
+    });
   }
 };
 
@@ -72,9 +104,17 @@ const deleteCustomer = async (req, res) => {
       data: deletedCustomer,
     });
   } catch (error) {
-    res
-      .status(error?.status || 500)
-      .json({ result: "Failed", data: { error: error?.message || error } });
+    res.status(error?.status || 500).json({
+      result: "Failed",
+      data: {
+        error: {
+          code: error.code || error,
+          meta: error.meta || error,
+          message: error.message || error,
+          clientVersion: error.clientVersion || error,
+        },
+      },
+    });
   }
 };
 
