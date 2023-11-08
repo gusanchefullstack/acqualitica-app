@@ -1,0 +1,24 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend for Acqualitica app",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/gusanchefullstack/acqualitica-app.git"
+  },
+  "author": "Gustavo Sanchez <gustavosanchezgalarza@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gusanchefullstack/acqualitica-app/issues"
+  },
+  "homepage": "https://github.com/gusanchefullstack/acqualitica-app#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
