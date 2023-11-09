@@ -2,7 +2,7 @@ import customerService from "../services/customerService.js";
 
 //to-do Change Status Code in catch exception handling
 
-const getAllCustomers = async (req, res) => {
+const getAllCustomers = async (req, res, next) => {
   try {
     const allCustomers = await customerService.getAllCustomers();
     res.json({
@@ -10,14 +10,11 @@ const getAllCustomers = async (req, res) => {
       data: { items: allCustomers.length, customers: allCustomers },
     });
   } catch (error) {
-    res.json({
-      result: "Failed",
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-const getSingleCustomer = async (req, res) => {
+const getSingleCustomer = async (req, res, next) => {
   try {
     const { id } = req.params;
     const customer = await customerService.getSingleCustomer(id);
@@ -26,14 +23,11 @@ const getSingleCustomer = async (req, res) => {
       data: customer,
     });
   } catch (error) {
-    res.json({
-      result: "Failed",
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-const createCustomer = async (req, res) => {
+const createCustomer = async (req, res, next) => {
   try {
     const customerData = req.body;
     const createdCustomer = await customerService.createCustomer(customerData);
@@ -42,14 +36,11 @@ const createCustomer = async (req, res) => {
       data: createdCustomer,
     });
   } catch (error) {
-    res.json({
-      result: "Failed",
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-const updateCustomer = async (req, res) => {
+const updateCustomer = async (req, res, next) => {
   try {
     const { id } = req.params;
     const customerData = req.body;
@@ -62,14 +53,11 @@ const updateCustomer = async (req, res) => {
       data: updatedCustomer,
     });
   } catch (error) {
-    res.json({
-      result: "Failed",
-      error: error.message,
-    });
+    next(error);
   }
 };
 
-const deleteCustomer = async (req, res) => {
+const deleteCustomer = async (req, res, next) => {
   try {
     const { id } = req.params;
     const deletedCustomer = await customerService.deleteCustomer(id);
@@ -78,10 +66,7 @@ const deleteCustomer = async (req, res) => {
       data: deletedCustomer,
     });
   } catch (error) {
-    res.json({
-      result: "Failed",
-      error: error.message,
-    });
+    next(error);
   }
 };
 

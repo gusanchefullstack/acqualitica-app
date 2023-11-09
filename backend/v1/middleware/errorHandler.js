@@ -1,13 +1,36 @@
-import { body, param, validationResult } from "express-validator";
+import { Prisma } from "@prisma/client";
 
-export const handleInputErrors = (req, res, next) => {
-  const errors = validationResult(req);
+const logError = (error, req, res, next) => {
+  console.log(
+    "***************************************************************************"
+  );
+  console.error(error);
+  console.log(
+    "***************************************************************************"
+  );
+  next(error);
+};
 
-  if (!errors.isEmpty()) {
-
-    //400 is Bad Request
-    res.status(400).json({ errors: errors.array() });
+const prismaErrors = (error, req, res, next) => {
+  if (error instanceof Prisma.PrismaClientKnownRequestError) {
+    // The .code property can be accessed in a type-safe manner
+    if (error.code === "P2025") {
+      console.log(`Error code: ${error.code}`);
+      res.json({
+        result: "Failed",
+        error: error.meta.cause,
+        code: error.code,
+      });
+    }
   } else {
-    next();
+    res.json({
+      result: "Failed",
+      error: error.message,
+    });
   }
+};
+
+export default {
+  logError,
+  prismaErrors,
 };

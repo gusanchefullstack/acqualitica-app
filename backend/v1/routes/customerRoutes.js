@@ -1,6 +1,6 @@
 import express from "express";
 import customerController from "../controllers/customerController.js";
-import { handleInputErrors } from "../middleware/errorHandler.js";
+import { inputErrorHandler } from "../middleware/inputErrorsHandler.js";
 import { body, param } from "express-validator";
 
 const customerRoutes = express.Router();
@@ -9,7 +9,7 @@ customerRoutes.get("/", customerController.getAllCustomers);
 customerRoutes.get(
   "/:id",
   param("id").isUUID().withMessage("Invalid Id"),
-  handleInputErrors,
+  inputErrorHandler,
   customerController.getSingleCustomer
 );
 customerRoutes.post(
@@ -62,7 +62,7 @@ customerRoutes.post(
     .isLength({ min: 7, max: 50 })
     .withMessage("Invalid length (7-255) characters")
     .trim(),
-  handleInputErrors,
+  inputErrorHandler,
   customerController.createCustomer
 );
 customerRoutes.patch(
@@ -110,13 +110,13 @@ customerRoutes.patch(
     .isLength({ min: 7, max: 50 })
     .withMessage("Invalid length (7-255) characters")
     .trim(),
-  handleInputErrors,
+  inputErrorHandler,
   customerController.updateCustomer
 );
 customerRoutes.delete(
   "/:id",
   param("id").isUUID().withMessage("Invalid Id"),
-  handleInputErrors,
+  inputErrorHandler,
   customerController.deleteCustomer
 );
 
