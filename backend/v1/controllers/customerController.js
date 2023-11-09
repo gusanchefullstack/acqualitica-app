@@ -1,23 +1,18 @@
-import customerService from "../services/customer.js";
+import customerService from "../services/customerService.js";
+
+//to-do Change Status Code in catch exception handling
 
 const getAllCustomers = async (req, res) => {
   try {
     const allCustomers = await customerService.getAllCustomers();
     res.json({
       result: "Ok",
-      data: allCustomers,
+      data: { items: allCustomers.length, customers: allCustomers },
     });
   } catch (error) {
-    res.status(error?.status || 500).json({
+    res.json({
       result: "Failed",
-      data: {
-        error: {
-          code: error.code || error,
-          meta: error.meta || error,
-          message: error.message || error,
-          clientVersion: error.clientVersion || error,
-        },
-      },
+      error: error.message,
     });
   }
 };
@@ -31,16 +26,9 @@ const getSingleCustomer = async (req, res) => {
       data: customer,
     });
   } catch (error) {
-    res.status(error?.status || 500).json({
+    res.json({
       result: "Failed",
-      data: {
-        error: {
-          code: error.code || error,
-          meta: error.meta || error,
-          message: error.message || error,
-          clientVersion: error.clientVersion || error,
-        },
-      },
+      error: error.message,
     });
   }
 };
@@ -49,21 +37,14 @@ const createCustomer = async (req, res) => {
   try {
     const customerData = req.body;
     const createdCustomer = await customerService.createCustomer(customerData);
-    res.json({
+    res.status(201).json({
       result: "Ok",
       data: createdCustomer,
     });
   } catch (error) {
-    res.status(error?.status || 500).json({
+    res.json({
       result: "Failed",
-      data: {
-        error: {
-          code: error.code || error,
-          meta: error.meta || error,
-          message: error.message || error,
-          clientVersion: error.clientVersion || error,
-        },
-      },
+      error: error.message,
     });
   }
 };
@@ -81,16 +62,9 @@ const updateCustomer = async (req, res) => {
       data: updatedCustomer,
     });
   } catch (error) {
-    res.status(error?.status || 500).json({
+    res.json({
       result: "Failed",
-      data: {
-        error: {
-          code: error.code || error,
-          meta: error.meta || error,
-          message: error.message || error,
-          clientVersion: error.clientVersion || error,
-        },
-      },
+      error: error.message,
     });
   }
 };
@@ -104,16 +78,9 @@ const deleteCustomer = async (req, res) => {
       data: deletedCustomer,
     });
   } catch (error) {
-    res.status(error?.status || 500).json({
+    res.json({
       result: "Failed",
-      data: {
-        error: {
-          code: error.code || error,
-          meta: error.meta || error,
-          message: error.message || error,
-          clientVersion: error.clientVersion || error,
-        },
-      },
+      error: error.message,
     });
   }
 };
