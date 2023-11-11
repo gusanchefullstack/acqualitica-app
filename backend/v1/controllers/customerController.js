@@ -4,6 +4,7 @@ import customerService from "../services/customerService.js";
 
 const getAllCustomers = async (req, res, next) => {
   try {
+    
     const allCustomers = await customerService.getAllCustomers();
     res.json({
       result: "Ok",
