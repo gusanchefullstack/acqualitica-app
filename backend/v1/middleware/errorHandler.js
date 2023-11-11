@@ -16,7 +16,7 @@ const prismaErrors = (error, req, res, next) => {
     // The .code property can be accessed in a type-safe manner
     res.json({
       result: "Failed",
-      error: error.meta.cause,
+      error: error.meta.cause || error.meta,
       code: error.code,
     });
   } else {

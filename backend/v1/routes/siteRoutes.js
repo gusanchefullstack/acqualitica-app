@@ -1,20 +1,18 @@
 import express from "express";
-import customerController from "../controllers/customerController.js";
+import siteController from "../controllers/siteController.js";
 import { inputErrorHandler } from "../middleware/inputErrorsHandler.js";
 import { body, param } from "express-validator";
-import siteController from "../controllers/siteController.js";
 
-const customerRoutes = express.Router();
+const siteRoutes = express.Router();
 
-customerRoutes.get("/", customerController.getAllCustomers);
-customerRoutes.get(
+siteRoutes.get("/", siteController.getAllSites);
+siteRoutes.get(
   "/:id",
   param("id").isUUID().withMessage("Invalid Id"),
   inputErrorHandler,
-  customerController.getSingleCustomer
+  siteController.getSingleSite
 );
-
-customerRoutes.post(
+siteRoutes.post(
   "/",
   body("name")
     .notEmpty()
@@ -64,10 +62,15 @@ customerRoutes.post(
     .isLength({ min: 7, max: 50 })
     .withMessage("Invalid length (7-255) characters")
     .trim(),
+  body("customerId")
+    .notEmpty()
+    .withMessage("Missing value")
+    .isUUID()
+    .withMessage("Invalid type"),
   inputErrorHandler,
-  customerController.createCustomer
+  siteController.createSite
 );
-customerRoutes.patch(
+siteRoutes.patch(
   "/:id",
   param("id").isUUID().withMessage("Invalid Id"),
   body("name")
@@ -113,13 +116,13 @@ customerRoutes.patch(
     .withMessage("Invalid length (7-255) characters")
     .trim(),
   inputErrorHandler,
-  customerController.updateCustomer
+  siteController.updateSite
 );
-customerRoutes.delete(
+siteRoutes.delete(
   "/:id",
   param("id").isUUID().withMessage("Invalid Id"),
   inputErrorHandler,
-  customerController.deleteCustomer
+  siteController.deleteSite
 );
 
-export default customerRoutes;
+export default siteRoutes;

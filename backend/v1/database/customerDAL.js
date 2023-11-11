@@ -18,6 +18,18 @@ const getSingleCustomer = async (customerId) => {
       where: {
         id: customerId,
       },
+      include: {
+        sites: {
+          select: {
+            name: true,
+            address: true,
+            city: true,
+            state: true,
+            country: true,
+            phone: true,
+          },
+        },
+      },
     });
     await prisma.$disconnect();
     return customer;
