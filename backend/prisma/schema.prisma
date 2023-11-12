@@ -39,9 +39,17 @@ model Site {
 }
 
 model Point {
-  id     String @id @default(uuid())
-  name   String @db.VarChar(255)
+  id     String  @id @default(uuid())
+  name   String  @db.VarChar(255)
   latlng String
-  Site   Site   @relation(fields: [siteId], references: [id])
+  Site   Site    @relation(fields: [siteId], references: [id])
   siteId String
+  boards Board[]
+}
+
+model Board {
+  id      String @id @default(uuid())
+  name    String @db.VarChar(255)
+  Point   Point  @relation(fields: [pointId], references: [id])
+  pointId String
 }

@@ -18,6 +18,14 @@ const getSinglePoint = async (pointId) => {
       where: {
         id: pointId,
       },
+      include: {
+        boards: {
+          select: {
+            name: true,
+            id: true,
+          },
+        },
+      },
     });
     await prisma.$disconnect();
     return point;
