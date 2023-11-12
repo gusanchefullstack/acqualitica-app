@@ -18,6 +18,14 @@ const getSingleBoard = async (boardId) => {
       where: {
         id: boardId,
       },
+      include: {
+        sensors: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
     });
     await prisma.$disconnect();
     return board;

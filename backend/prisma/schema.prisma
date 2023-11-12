@@ -48,8 +48,16 @@ model Point {
 }
 
 model Board {
+  id      String   @id @default(uuid())
+  name    String   @db.VarChar(255)
+  Point   Point    @relation(fields: [pointId], references: [id])
+  pointId String
+  sensors Sensor[]
+}
+
+model Sensor {
   id      String @id @default(uuid())
   name    String @db.VarChar(255)
-  Point   Point  @relation(fields: [pointId], references: [id])
-  pointId String
+  Board   Board  @relation(fields: [boardId], references: [id])
+  boardId String
 }
