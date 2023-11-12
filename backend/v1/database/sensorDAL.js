@@ -28,10 +28,11 @@ const getSingleSensor = async (sensorId) => {
 
 const createSensor = async (obj) => {
   try {
-    const { name, boardId } = obj;
+    const { name, type, boardId } = obj;
     const createdSensor = await prisma.sensor.create({
       data: {
         name,
+        type,
         boardId,
       },
     });

@@ -56,8 +56,18 @@ model Board {
 }
 
 model Sensor {
-  id      String @id @default(uuid())
-  name    String @db.VarChar(255)
-  Board   Board  @relation(fields: [boardId], references: [id])
+  id      String     @id @default(uuid())
+  name    String     @db.VarChar(255)
+  Board   Board      @relation(fields: [boardId], references: [id])
+  type    SensorType @default(TEMPERATURE)
   boardId String
+}
+
+enum SensorType {
+  pH
+  OD
+  FLOW
+  TEMPERATURE
+  CONDUCTIVITY
+  ORP
 }

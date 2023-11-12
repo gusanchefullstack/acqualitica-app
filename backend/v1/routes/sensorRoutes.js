@@ -1,7 +1,7 @@
 import express from "express";
 import sensorController from "../controllers/sensorController.js";
 import { inputErrorHandler } from "../middleware/inputErrorsHandler.js";
-import { body, param } from "express-validator";
+import { body, check, param } from "express-validator";
 
 const sensorRoutes = express.Router();
 
@@ -22,6 +22,11 @@ sensorRoutes.post(
     .isLength({ min: 3, max: 255 })
     .withMessage("Invalid length (3-255) characters")
     .trim(),
+  check("type")
+    .notEmpty()
+    .withMessage("Missing value")
+    .isIn(["pH", "OD", "FLOW", "TEMPERATURE", "CONDUCTIVITY", "ORP"])
+    .withMessage("type must be pH, OD, FLOW, TEMPERATURE, CONDUCTIVITY, ORP"),
   body("boardId")
     .notEmpty()
     .withMessage("Missing value")
@@ -40,6 +45,10 @@ sensorRoutes.patch(
     .isLength({ min: 3, max: 255 })
     .withMessage("Invalid length (3-255) characters")
     .trim(),
+    check("type")
+    .optional()
+    .isIn(["pH", "OD", "FLOW", "TEMPERATURE", "CONDUCTIVITY", "ORP"])
+    .withMessage("type must be pH, OD, FLOW, TEMPERATURE, CONDUCTIVITY, ORP"),
   inputErrorHandler,
   sensorController.updateSensor
 );
