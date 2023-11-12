@@ -18,6 +18,14 @@ const getSingleSite = async (siteId) => {
       where: {
         id: siteId,
       },
+      include: {
+        points: {
+          select: {
+            name: true,
+            latlng: true,
+          },
+        },
+      },
     });
     await prisma.$disconnect();
     return site;

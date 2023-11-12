@@ -24,15 +24,24 @@ model Customer {
 }
 
 model Site {
-  id         String    @id @default(uuid())
-  name       String    @db.VarChar(255)
-  address    String    @db.VarChar(255)
-  city       String    @db.VarChar(255)
-  state      String    @db.VarChar(255)
-  country    String    @db.VarChar(255)
-  phone      String    @db.VarChar(50)
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  id         String   @id @default(uuid())
+  name       String   @db.VarChar(255)
+  address    String   @db.VarChar(255)
+  city       String   @db.VarChar(255)
+  state      String   @db.VarChar(255)
+  country    String   @db.VarChar(255)
+  phone      String   @db.VarChar(50)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
   Customer   Customer @relation(fields: [customerId], references: [id])
   customerId String
+  points     Point[]
+}
+
+model Point {
+  id     String @id @default(uuid())
+  name   String @db.VarChar(255)
+  latlng String
+  Site   Site   @relation(fields: [siteId], references: [id])
+  siteId String
 }
